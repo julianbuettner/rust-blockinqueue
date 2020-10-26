@@ -1,0 +1,9 @@
+[package]
+name = "blockingqueue"
+version = "0.1.0"
+authors = ["Julian Büttner <buetttner-julian@t-online.de>"]
+edition = "2018"
+
+# Very very simple wrapper around Rust's mpsc channel
+
+[dependencies]
