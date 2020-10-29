@@ -2,7 +2,7 @@ use std::sync::mpsc::{channel, Receiver, Sender};
 use std::sync::{Arc, Mutex};
 
 pub struct BlockingQueue<T> {
-    sender: Arc<Mutex<Sender<T>>>,
+    sender: Sender<T>,
     receiver: Arc<Mutex<Receiver<T>>>,
 }
 
@@ -10,13 +10,13 @@ impl<T> BlockingQueue<T> {
     pub fn new() -> Self {
         let (sender, receiver) = channel();
         Self {
-            sender: Arc::new(Mutex::new(sender)),
+            sender: sender,
             receiver: Arc::new(Mutex::new(receiver)),
         }
     }
 
     pub fn push(&self, e: T) {
-        self.sender.lock().unwrap().send(e).unwrap();
+        self.sender.send(e).unwrap();
     }
 
     pub fn pop(&self) -> T {
