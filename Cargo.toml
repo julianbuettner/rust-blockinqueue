@@ -10,3 +10,6 @@ license = "MIT OR Apache-2.0"
 # Very very simple wrapper around Rust's mpsc channel
 
 [dependencies]
+
+[profile.release]
+debug = 1

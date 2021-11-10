@@ -1,5 +1,11 @@
+#![feature(test)]
+extern crate test;
+
+mod jobqueue;
 use std::sync::mpsc::{channel, Receiver, Sender};
 use std::sync::{Arc, Mutex};
+
+pub use jobqueue::{JobHandler, StableJobResultQueue};
 
 pub struct BlockingQueue<T> {
     sender: Sender<T>,
@@ -61,7 +67,7 @@ mod tests {
 
         let bq1 = bq.clone();
         thread::spawn(move || {
-            thread::sleep(time::Duration::from_millis(1000));
+            thread::sleep(time::Duration::from_millis(200));
             bq1.push(456);
         });
 
